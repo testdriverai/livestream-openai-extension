@@ -23,4 +23,4 @@ jobs:
     - name: Run TestDriver tests
       run: npx testdriverai@latest run testdriver/example.yaml
       env:
-        TESTDRIVER_API_KEY: ${{ secrets.TESTDRIVER_API_KEY }}
+        TD_API_KEY: ${{ secrets.TESTDRIVER_API_KEY }}
