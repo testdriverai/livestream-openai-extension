@@ -1,0 +1,70 @@
+version: 6.0.13
+session: 6895397e5befc5dd584d3196
+steps:
+  - prompt: Focus Chrome and navigate to extension in Chrome Web Store
+    commands:
+      - command: focus-application
+        name: Google Chrome
+      - command: wait-for-text
+        text: chrome.google.com/webstore
+        timeout: 10000
+      - command: wait-for-text
+        text: Add to Chrome
+        timeout: 15000
+  - prompt: Install the extension by clicking Add to Chrome
+    commands:
+      - command: hover-text
+        text: Add to Chrome
+        description: blue Add to Chrome button
+        action: click
+      - command: wait-for-text
+        text: Add extension
+        timeout: 5000
+  - prompt: Confirm extension installation
+    commands:
+      - command: hover-text
+        text: Add extension
+        description: confirmation dialog Add extension button
+        action: click
+      - command: wait-for-text
+        text: Extension added
+        timeout: 10000
+      - command: assert
+        expect: >-
+          ChatGPT search has been added to Chrome notification is visible and
+          Remove from Chrome button is present
+  - prompt: >-
+      focus the chrome url bar, and type "what is the capital of texas" and
+      press enter
+    commands:
+      - command: press-keys
+        keys:
+          - ctrl
+          - l
+      - command: type
+        text: what is the capital of texas
+      - command: press-keys
+        keys:
+          - enter
+  - prompt: assert that the chatgpt search extension changed search to use chatgpt.com
+    commands:
+      - command: assert
+        expect: The "ChatGPT search" extension changed search to use chatgpt.com
+  - prompt: click on keep it
+    commands:
+      - command: hover-text
+        text: Keep it
+        description: >-
+          light blue button on the popup asking to keep chatgpt.com as the
+          search provider
+        action: click
+  - prompt: assert that chatgpt.com is open
+    commands:
+      - command: assert
+        expect: >-
+          The browser is open to chatgpt.com and the ChatGPT interface is
+          visible
+  - prompt: assert that chatgpt correctly says teh capital of texas is austin
+    commands:
+      - command: assert
+        expect: ChatGPT says the capital of Texas is Austin
